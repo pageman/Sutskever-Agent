@@ -2,7 +2,7 @@
 
 **A [GitAgent](https://www.gitagent.sh/) definition providing an AI pedagogue layered on [pageman/sutskever-30-implementations](https://github.com/pageman/sutskever-30-implementations)**
 
-![Skills](https://img.shields.io/badge/skills-7-blue) ![Spec](https://img.shields.io/badge/gitagent-v0.1.0-green) ![Validation](https://img.shields.io/badge/validation-passing-brightgreen) ![Model](https://img.shields.io/badge/model-claude--sonnet--4--6-blueviolet) [![DeepWiki](https://deepwiki.com/badge-maker?url=https%3A%2F%2Fdeepwiki.com%2Fpageman%2Fsutskever-30-implementations)](https://deepwiki.com/pageman/sutskever-30-implementations)
+![Skills](https://img.shields.io/badge/skills-7-blue) ![Spec](https://img.shields.io/badge/gitagent-v0.1.0-green) ![Validation](https://img.shields.io/badge/validation-passing-brightgreen) ![Model](https://img.shields.io/badge/model-claude--sonnet--4--6-blueviolet)
 
 This repo **does not contain notebooks**. It defines an AI agent that reads, explains, traces, and reviews the 30 pure-NumPy deep learning implementations in the companion repository. Each skill is:
 
