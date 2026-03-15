@@ -1,6 +1,6 @@
 ---
 name: explain-paper
-description: Explain any of the 30 Sutskever reading list papers in a structured 5-part format
+description: Explain any of the 30 Sutskever reading list papers in a structured 6-part format
 license: educational
 allowed-tools: arxiv_fetcher github_reader
 metadata:
@@ -12,8 +12,8 @@ metadata:
 # Skill: explain_paper
 
 ## Purpose
-Explain a paper from the Sutskever reading list using a structured 5-part format:
-Problem → Key Insight → Math → NumPy Implementation → Historical Context.
+Explain a paper from the Sutskever reading list using a structured 6-part format:
+Problem → Key Insight → Math → NumPy Implementation → Scaling & Interpretability → Historical Context.
 
 ## Input
 - A paper number (1–30), title, nickname, or arXiv ID
@@ -55,18 +55,24 @@ Problem → Key Insight → Math → NumPy Implementation → Historical Context
    Highlight the central NumPy operation (e.g., "scaled dot-product via np.matmul").
    Use shape annotations in the format `# (batch, seq_len, d_model)`.
 
+   ### Scaling & Interpretability
+   Read `scaling_efficiency` and `interpretability_note` from `paper_index.yaml` for this paper.
+   Explain how the architecture behaves as compute and data scale (does it get better? hit a wall?).
+   Describe any known mechanistic circuits or interpretable structures in the weights.
+   Reference the Residual Stream intuition (knowledge/notation_guide.md §Modern Intuition) where applicable.
+
    ### Historical Context
    What came before this paper (prerequisites[] from paper_index.yaml).
-   What came after (related[] from paper_index.yaml).
+   What came after (related[] and modern_evolution from paper_index.yaml).
    One sentence on how this paper changed the field.
 
 5. **Cross-link to related papers**
-   After the 5 sections, list the related papers from paper_index.yaml with one-line descriptions
+   After the 6 sections, list the related papers from paper_index.yaml with one-line descriptions
    of the connection. Help the learner see where this paper fits in the 30-paper arc.
 
 ## Output Format
 
-Use headers: `## Problem`, `## Key Insight`, `## Math`, `## NumPy Implementation`, `## Historical Context`
+Use headers: `## Problem`, `## Key Insight`, `## Math`, `## NumPy Implementation`, `## Scaling & Interpretability`, `## Historical Context`
 
 Every factual claim cites its source per rules/cite_sources.md.
 All code examples are NumPy only per rules/numpy_only.md.

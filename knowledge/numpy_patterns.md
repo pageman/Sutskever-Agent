@@ -219,4 +219,31 @@ def numerical_gradient(loss_fn, param, epsilon=1e-5):
 diff = np.max(np.abs(analytical_grad - numerical_grad)) / \
        (np.max(np.abs(analytical_grad)) + np.max(np.abs(numerical_grad)) + 1e-8)
 assert diff < 1e-5, f"Gradient check failed: relative diff = {diff}"
+
+---
+
+## 11. Stability over Speed (The "Safety First" Principle)
+
+**Papers:** all 30 notebooks follow this principle
+
+In pedagogical NumPy-only code, **numerical stability and clarity take precedence over raw speed**.
+This is not a limitation — it mirrors the "correctness first" discipline in production ML engineering.
+
+Four rules applied consistently across all notebooks:
+
+- **Log-Sum-Exp trick** (Pattern #1): Always subtract the maximum before exponentiating.
+  Prevents `Inf` overflow and preserves the gradient signal through softmax.
+
+- **Epsilon smoothing**: When dividing by a value that could be zero — standard deviation in
+  LayerNorm (Paper 13), VAE encoder std (Paper 17) — always add a small constant:
+  ```python
+  normalized = (x - mean) / (std + 1e-8)
+  ```
+
+- **Explicit shapes**: Avoid "clever" broadcasting that obscures tensor rank. Prefer
+  `np.expand_dims` or `[:, np.newaxis, :]` over implicit broadcasting so the reader can
+  trace every dimension.
+
+- **Gradient checking before trusting** (Pattern #10): If a backward pass cannot be verified
+  numerically, it cannot be trusted. Paper 18's ~1100-line backward pass was validated this way.
 ```

@@ -109,3 +109,26 @@ the σ() sigmoid activation — context disambiguates.
 | d | Information theory papers (5,8,23) | Kolmogorov complexity or description length |
 
 When the context is ambiguous, this agent will always clarify which meaning is in use.
+
+---
+
+## Modern Intuition: The Residual Stream
+
+In very deep networks (Papers 10, 15, 13), we move away from the "stack of filters" mental model.
+Instead, use the **Residual Stream** intuition:
+
+| Concept | Description |
+|---------|-------------|
+| **The Stream (x)** | The input vector is a high-bandwidth information highway that flows through the entire network unchanged unless a layer writes to it. |
+| **Read/Write Layers** | Each block (Residual Block or Attention Head) performs a small operation F(x) and **adds** its result back: x ← x + F(x). |
+| **Benefit** | Information and gradients travel from layer 1 to layer N without distortion. Layers don't replace information — they contribute to it. |
+
+```python
+# Residual block — the stream x passes through unchanged + a small delta
+def residual_block(x, F):
+    return x + F(x)   # F(x) is the "write" to the stream
+```
+
+This intuition is the foundation of **Mechanistic Interpretability** (Papers 10, 15): because each
+layer adds to a shared stream, we can analyze each layer's contribution independently by examining
+what it reads from and writes to the residual stream.

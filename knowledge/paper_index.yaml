@@ -25,6 +25,9 @@ papers:
     prerequisites: []
     related: [5, 19, 23, 25]
     estimated_hours: 3
+    scaling_efficiency: "N/A (Theoretical)"
+    interpretability_note: "Complexity peaks in the transition between order and chaos — the same regime where interesting computation happens."
+    modern_evolution: "Directly informs modern 'World Models' research and the thermodynamic view of intelligence."
 
   - id: 2
     title: "The Unreasonable Effectiveness of Recurrent Neural Networks"
@@ -43,6 +46,9 @@ papers:
     prerequisites: []
     related: [3, 4, 8]
     estimated_hours: 2
+    scaling_efficiency: "Low (fundamentally limited by sequential computation — cannot be parallelized across time)"
+    interpretability_note: "Individual neurons can be found that track line lengths, quote depth, or code indentation level."
+    modern_evolution: "The ancestor of every LLM; the char-RNN → LSTM → Transformer lineage is the core arc of deep learning."
 
   - id: 3
     title: "Understanding LSTM Networks"
@@ -61,6 +67,9 @@ papers:
     prerequisites: [2]
     related: [2, 4, 18, 20]
     estimated_hours: 2
+    scaling_efficiency: "Medium (better than vanilla RNN, but still sequential; cell state is a fixed-size bottleneck)"
+    interpretability_note: "Gates act as a learned 'Residual Stream' for memory — the cell state c_t flows largely unmodified."
+    modern_evolution: "Evolved into GRUs, then replaced by Transformers; now re-emerging as State-Space Models (SSMs/Mamba)."
 
   - id: 4
     title: "Recurrent Neural Network Regularization"
@@ -78,6 +87,9 @@ papers:
     prerequisites: [2, 3]
     related: [2, 3, 18]
     estimated_hours: 2
+    scaling_efficiency: "High (dropout becomes more critical, not less, as model size grows)"
+    interpretability_note: "Dropout forces distributed representations — no single neuron can 'own' a feature."
+    modern_evolution: "Standardized as Dropout/DropPath in modern architectures; concept extended to attention with DropAttention."
 
   - id: 5
     title: "Keeping Neural Networks Simple by Minimizing the Description Length of the Weights"
@@ -95,6 +107,9 @@ papers:
     prerequisites: []
     related: [1, 23, 25]
     estimated_hours: 5
+    scaling_efficiency: "Very High (pruning enables large models to run on small hardware)"
+    interpretability_note: "Pruning reveals the 'Winning Ticket' — the sparse subnetwork that contains all the learned structure."
+    modern_evolution: "Evolved into modern quantization, sparsity, and the Lottery Ticket Hypothesis (Frankle & Carlin 2019)."
 
   # ─── Section 2: Architectures & Mechanisms (Papers 6–15) ──────────────────
 
@@ -114,6 +129,9 @@ papers:
     prerequisites: [14]
     related: [8, 13, 14]
     estimated_hours: 4
+    scaling_efficiency: "Medium (O(N²) attention complexity; practical limit around N=1000 input tokens)"
+    interpretability_note: "Attention weights directly visualize the model's 'solution' to combinatorial problems — readable at inference time."
+    modern_evolution: "Basis for modern tool-use where a model 'points to' a specific API or function to call."
 
   - id: 7
     title: "ImageNet Classification with Deep Convolutional Neural Networks"
@@ -131,6 +149,9 @@ papers:
     prerequisites: []
     related: [10, 11, 15, 26]
     estimated_hours: 4
+    scaling_efficiency: "High (the 2012 ImageNet result proved that scale + compute = capability)"
+    interpretability_note: "First-layer filters learn Gabor-like edge detectors, mirroring V1 neurons in the mammalian visual cortex."
+    modern_evolution: "The direct ancestor of all modern vision models — ResNet, ViT, and CLIP all trace back to AlexNet's architecture."
 
   - id: 8
     title: "Order Matters: Sequence to Sequence for Sets"
@@ -148,6 +169,9 @@ papers:
     prerequisites: [6]
     related: [6, 13, 14]
     estimated_hours: 4
+    scaling_efficiency: "High (critical for non-sequential data like tables, graphs, and knowledge bases)"
+    interpretability_note: "The 'Read-Process-Write' loop simulates iterative reasoning — each read pass refines the internal representation."
+    modern_evolution: "Evolved into Set Transformers and GNNs; the permutation-invariance insight underpins modern graph attention."
 
   - id: 9
     title: "GPipe: Easy Scaling with Micro-Batch Pipeline Parallelism"
@@ -165,6 +189,9 @@ papers:
     prerequisites: []
     related: [22, 27]
     estimated_hours: 3
+    scaling_efficiency: "Extreme (mandatory for models that don't fit on a single GPU; near-linear scaling with device count)"
+    interpretability_note: "Visualizing the 'pipeline bubble' exposes where compute efficiency is lost — a direct window into training dynamics."
+    modern_evolution: "Foundational for 3D parallelism (Data + Pipeline + Tensor) used in GPT-4, Gemini, and all frontier models."
 
   - id: 10
     title: "Deep Residual Learning for Image Recognition"
@@ -182,6 +209,9 @@ papers:
     prerequisites: [7]
     related: [7, 11, 15, 26]
     estimated_hours: 4
+    scaling_efficiency: "Very High (solved the degradation problem — enables networks of 1000+ layers)"
+    interpretability_note: "ResNets behave like ensembles of many shallow networks; removing any single layer causes only graceful degradation."
+    modern_evolution: "The skip connection became the 'Residual Stream' in Transformers — every modern LLM is built on this insight."
 
   - id: 11
     title: "Multi-Scale Context Aggregation by Dilated Convolutions"
@@ -199,6 +229,9 @@ papers:
     prerequisites: [7, 10]
     related: [7, 10, 15]
     estimated_hours: 3
+    scaling_efficiency: "Medium (exponential receptive field growth with depth, but no added parameters)"
+    interpretability_note: "Higher dilation rates let the model see 'global' context while lower rates preserve 'local' edge detail — readable in activation maps."
+    modern_evolution: "Used in WaveNet (audio generation) and remains standard in all semantic segmentation models."
 
   - id: 12
     title: "Neural Message Passing for Quantum Chemistry"
@@ -216,6 +249,9 @@ papers:
     prerequisites: []
     related: [16]
     estimated_hours: 4
+    scaling_efficiency: "High (scales to arbitrary graph sizes; complexity is linear in edges)"
+    interpretability_note: "Gradients flow across edges, revealing which chemical bonds are most 'influential' for a predicted property."
+    modern_evolution: "The backbone of AlphaFold 2 and modern drug discovery; also inspired Graph Attention Networks."
 
   - id: 13
     title: "Attention Is All You Need"
@@ -233,6 +269,9 @@ papers:
     prerequisites: [14]
     related: [6, 14, 16, 18]
     estimated_hours: 6
+    scaling_efficiency: "Extreme (the architecture that defined the scaling era — O(N²) in sequence length, but massively parallelizable)"
+    interpretability_note: "Induction Heads emerge in layer 2; Copy-Paste circuits in layer 3 — the first mechanistic circuits to be formally identified."
+    modern_evolution: "The foundation for GPT, Gemini, Claude, Llama, and every frontier model in existence."
 
   - id: 14
     title: "Neural Machine Translation by Jointly Learning to Align and Translate"
@@ -250,6 +289,9 @@ papers:
     prerequisites: [4]
     related: [6, 8, 13]
     estimated_hours: 5
+    scaling_efficiency: "Medium (sequential RNN backbone limits parallelism; replaced by the Transformer's parallel attention)"
+    interpretability_note: "The alignment matrix is a direct, human-readable map of which source words the model attends to when generating each target word."
+    modern_evolution: "The first successful use of 'Attention' in NLP — Paper 13 generalized this into the fully-attentional Transformer."
 
   - id: 15
     title: "Identity Mappings in Deep Residual Networks"
@@ -267,6 +309,9 @@ papers:
     prerequisites: [10]
     related: [10, 11, 26]
     estimated_hours: 3
+    scaling_efficiency: "Very High (pre-activation enables convergence of 1000+ layer networks by keeping the skip path clean)"
+    interpretability_note: "Keeping the shortcut path free of non-linearities lets gradient flow unimpeded — measurable via gradient norm plots."
+    modern_evolution: "Most modern Transformers use Pre-Norm (LayerNorm before attention/MLP) — the same insight applied to a different architecture."
 
   # ─── Section 3: Advanced Topics (Papers 16–22) ────────────────────────────
 
@@ -286,6 +331,9 @@ papers:
     prerequisites: [13]
     related: [12, 18]
     estimated_hours: 4
+    scaling_efficiency: "Medium (O(N²) in number of objects; practical limit around N=100 objects)"
+    interpretability_note: "The MLP weights learn relational 'concepts' like 'left of' or 'same color' — probing reveals structured feature geometry."
+    modern_evolution: "Evolved into multi-modal agents that reason over image regions; precursor to visual chain-of-thought."
 
   - id: 17
     title: "Variational Lossy Autoencoder"
@@ -303,6 +351,9 @@ papers:
     prerequisites: []
     related: [5, 23, 25]
     estimated_hours: 6
+    scaling_efficiency: "Medium (latent dimensionality vs. reconstruction quality is the core trade-off)"
+    interpretability_note: "With beta-annealing, the latent space becomes disentangled — single dimensions control interpretable factors like pose or lighting."
+    modern_evolution: "Foundational for Stable Diffusion's latent space and all modern generative video models."
 
   - id: 18
     title: "Relational Recurrent Neural Networks"
@@ -320,6 +371,9 @@ papers:
     prerequisites: [4, 13]
     related: [16, 20]
     estimated_hours: 12
+    scaling_efficiency: "Medium (high compute cost per step due to full attention over memory slots)"
+    interpretability_note: "Relational memory acts as a 'dynamic database' — attention weights show exactly which memory slots are queried at each step."
+    modern_evolution: "Evolved into Memory-Augmented LLMs and RAG systems; the memory-slot abstraction foreshadowed KV-cache compression."
 
   - id: 19
     title: "The Coffee Automaton"
@@ -338,6 +392,9 @@ papers:
     prerequisites: []
     related: [1, 5, 23]
     estimated_hours: 3
+    scaling_efficiency: "N/A (Theoretical)"
+    interpretability_note: "Information is never destroyed — only 'smeared' into microscopic heat. The macro/micro distinction is the key interpretability question."
+    modern_evolution: "Links AI compute efficiency to the fundamental physics of computation (Landauer's principle)."
 
   - id: 20
     title: "Neural Turing Machines"
@@ -355,6 +412,9 @@ papers:
     prerequisites: [4, 14]
     related: [3, 18]
     estimated_hours: 8
+    scaling_efficiency: "Low (complex addressing mechanisms don't scale as gracefully as Transformer attention)"
+    interpretability_note: "You can watch the model 'scroll' through its memory tape — read/write head positions are directly inspectable."
+    modern_evolution: "Precursor to modern RAG and KV-cache systems; the differentiable memory idea resurfaced in Memorizing Transformers."
 
   - id: 21
     title: "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin"
@@ -372,6 +432,9 @@ papers:
     prerequisites: [4]
     related: [8]
     estimated_hours: 8
+    scaling_efficiency: "High (proven to work at massive industrial scale; Baidu trained on 11,940 hours of speech)"
+    interpretability_note: "The CTC 'blank' token reveals where the model is 'thinking' between phonemes — blank density tracks acoustic uncertainty."
+    modern_evolution: "Used in every modern voice assistant; the CTC loss is still the backbone of Whisper-style speech models."
 
   - id: 22
     title: "Scaling Laws for Neural Language Models"
@@ -389,6 +452,9 @@ papers:
     prerequisites: []
     related: [9, 27]
     estimated_hours: 4
+    scaling_efficiency: "N/A (this paper IS the scaling efficiency analysis — performance is a predictable power law of N, D, and C)"
+    interpretability_note: "Loss is a smooth, predictable function of scale regardless of architecture — suggesting capability emerges continuously, not discretely."
+    modern_evolution: "Updated by Chinchilla scaling laws (Hoffmann et al. 2022), which revised the compute-optimal data/parameter ratio."
 
   # ─── Section 4: Theory & Meta-Learning (Papers 23–30) ─────────────────────
 
@@ -408,6 +474,9 @@ papers:
     prerequisites: [5]
     related: [1, 5, 19, 25]
     estimated_hours: 6
+    scaling_efficiency: "N/A (Theoretical — but the MDL lens predicts that larger models generalize better precisely when they compress training data more)"
+    interpretability_note: "Learning = Compression. A model that compresses data well has learned its patterns — this is a testable, quantitative claim."
+    modern_evolution: "Foundational for the Kolmogorov Complexity view of AGI and for understanding why overparameterized models generalize."
 
   - id: 24
     title: "Machine Super Intelligence"
@@ -426,6 +495,9 @@ papers:
     prerequisites: []
     related: [25, 23]
     estimated_hours: 5
+    scaling_efficiency: "N/A (incomputable — AIXI is the theoretical optimum, not a practical algorithm)"
+    interpretability_note: "Intelligence is a weighted sum of performance across all possible environments — the weights are Kolmogorov-complexity priors."
+    modern_evolution: "The ultimate theoretical target for AGI; AIXI's reward-maximization framing directly influenced RLHF."
 
   - id: 25
     title: "Kolmogorov Complexity and Algorithmic Randomness"
@@ -444,6 +516,9 @@ papers:
     prerequisites: [23]
     related: [1, 5, 19, 23, 24]
     estimated_hours: 8
+    scaling_efficiency: "N/A (Theoretical — Kolmogorov complexity is uncomputable, but compressibility is the practical proxy)"
+    interpretability_note: "True randomness is that which cannot be compressed further — this gives a formal definition of 'understanding' vs. 'memorizing'."
+    modern_evolution: "The mathematical foundation for the compression view of intelligence and for formal definitions of generalization."
 
   - id: 26
     title: "CS231n: Convolutional Neural Networks for Visual Recognition"
@@ -462,6 +537,9 @@ papers:
     prerequisites: [7, 10]
     related: [7, 10, 11, 15]
     estimated_hours: 4
+    scaling_efficiency: "Low (Linear) to Medium (CNN) — course covers the full complexity spectrum from kNN to deep CNNs"
+    interpretability_note: "Saliency maps and class activation maps reveal which pixels drive the final softmax decision — a core interpretability technique."
+    modern_evolution: "Evolved into Vision Transformers (ViT) and CLIP-style dual encoders; the im2col + matmul insight remains in all modern vision kernels."
 
   - id: 27
     title: "Better & Faster Large Language Models via Multi-token Prediction"
@@ -479,6 +557,9 @@ papers:
     prerequisites: []
     related: [9, 22]
     estimated_hours: 4
+    scaling_efficiency: "High (2-3x faster training; each token now contributes n gradient signals instead of 1)"
+    interpretability_note: "Forces the model to plan a 'future trajectory' — multi-head probing reveals lookahead representations in the trunk."
+    modern_evolution: "Being integrated into frontier models for faster reasoning; also enables speculative decoding at inference time."
 
   - id: 28
     title: "Dense Passage Retrieval for Open-Domain Question Answering"
@@ -496,6 +577,9 @@ papers:
     prerequisites: []
     related: [29, 30]
     estimated_hours: 4
+    scaling_efficiency: "High (scales to millions of documents with approximate nearest-neighbor indices like FAISS)"
+    interpretability_note: "The embedding space geometrically clusters semantically similar passages — t-SNE plots reveal topic neighborhoods."
+    modern_evolution: "The backbone of every modern RAG pipeline; bi-encoder architecture is now standard in enterprise search."
 
   - id: 29
     title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
@@ -513,6 +597,9 @@ papers:
     prerequisites: [28]
     related: [28, 30]
     estimated_hours: 4
+    scaling_efficiency: "Very High (enables models to access new information without retraining — effectively infinite external memory)"
+    interpretability_note: "Visualizing retrieved documents reveals the exact 'ground truth' the model used for a generation — the most transparent form of LLM reasoning."
+    modern_evolution: "The standard architecture for enterprise AI today; every production LLM deployment uses some form of RAG."
 
   - id: 30
     title: "Lost in the Middle: How Language Models Use Long Contexts"
@@ -530,3 +617,6 @@ papers:
     prerequisites: [13, 29]
     related: [28, 29]
     estimated_hours: 3
+    scaling_efficiency: "Medium (longer context windows improve recall in theory; this paper shows the practical ceiling)"
+    interpretability_note: "Attention heads naturally drift toward sequence start and end — the U-shaped recall curve is a direct readout of positional attention bias."
+    modern_evolution: "Motivated the 1M+ context window race (Gemini 1.5, Claude 3) and techniques like positional interpolation and needle-in-haystack evals."
