@@ -1,5 +1,5 @@
 ---
-name: trace_gradient
+name: trace-gradient
 description: Walk the chain rule backwards from loss to input for any notebook's backprop cells
 license: MIT
 allowed-tools: notebook_parser github_reader

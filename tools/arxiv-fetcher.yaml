@@ -1,0 +1,52 @@
+name: arxiv-fetcher
+version: "0.1.0"
+description: >
+  Fetch paper metadata and abstracts from arXiv by paper ID or title search.
+  Used to enrich paper explanations with official abstracts, author lists,
+  and publication dates from the primary source.
+input_schema:
+  type: object
+  properties:
+    arxiv_id:
+      type: string
+      description: "arXiv paper ID without the 'arXiv:' prefix. Example: '1706.03762'"
+    title_query:
+      type: string
+      description: "Free-text title search. Use when arxiv_id is unknown."
+    max_results:
+      type: integer
+      default: 1
+      description: "Maximum results to return."
+output_schema:
+  type: object
+  properties:
+    results:
+      type: array
+      items:
+        type: object
+        properties:
+          arxiv_id:
+            type: string
+          title:
+            type: string
+          authors:
+            type: array
+            items:
+              type: string
+          abstract:
+            type: string
+          published:
+            type: string
+          url:
+            type: string
+    total_found:
+      type: integer
+implementation:
+  type: http
+  url: https://export.arxiv.org/api/query
+  method: GET
+  timeout: 15
+annotations:
+  requires_confirmation: false
+  read_only: true
+  cost: none

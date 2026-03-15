@@ -1,5 +1,5 @@
 ---
-name: explain_notebook
+name: explain-notebook
 description: Walk through a notebook cell-by-cell with shape annotations and gradient moment identification
 license: MIT
 allowed-tools: github_reader notebook_parser

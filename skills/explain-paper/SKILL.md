@@ -1,5 +1,5 @@
 ---
-name: explain_paper
+name: explain-paper
 description: Explain any of the 30 Sutskever reading list papers in a structured 5-part format
 license: MIT
 allowed-tools: arxiv_fetcher github_reader

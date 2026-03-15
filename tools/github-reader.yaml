@@ -1,11 +1,9 @@
-name: github_reader
+name: github-reader
 version: "0.1.0"
 description: >
   Fetch files, directories, diffs, and PR content from GitHub repositories.
   Used to read the pageman/sutskever-30-implementations source repo without
   requiring a local clone.
-license: MIT
-
 input_schema:
   type: object
   required:
@@ -14,11 +12,10 @@ input_schema:
   properties:
     repo:
       type: string
-      description: "GitHub repository in owner/name format. Default: pageman/sutskever-30-implementations"
-      default: "pageman/sutskever-30-implementations"
+      description: "GitHub repository in owner/name format."
     path:
       type: string
-      description: "File or directory path within the repository. Required for read_file and list_dir operations."
+      description: "File or directory path within the repository."
     ref:
       type: string
       description: "Branch, tag, or commit SHA to read from."
@@ -29,11 +26,10 @@ input_schema:
       description: "The operation to perform."
     pr_number:
       type: integer
-      description: "Pull request number. Required when operation is read_pr or post_pr_comment."
+      description: "Pull request number. Required for read_pr and post_pr_comment."
     content:
       type: string
-      description: "Comment content. Required when operation is post_pr_comment."
-
+      description: "Comment content. Required for post_pr_comment."
 output_schema:
   type: object
   properties:
@@ -43,29 +39,17 @@ output_schema:
     sha:
       type: string
       description: "Commit SHA of the fetched ref."
-    encoding:
-      type: string
-      enum: ["utf-8", "base64"]
-      description: "Encoding of the returned content."
     truncated:
       type: boolean
       description: "True if content was truncated due to size limits."
-
 implementation:
-  type: api
-  endpoint: https://api.github.com
-  auth: github_token
-  auth_env_var: GITHUB_TOKEN
+  type: http
+  url: https://api.github.com
+  method: GET
   timeout: 30
   headers:
     Accept: "application/vnd.github.v3+json"
-    X-GitHub-Api-Version: "2022-11-28"
-
 annotations:
   requires_confirmation: false
-  requires_confirmation_for_write: true
-  read_only_operations: ["read_file", "list_dir", "read_diff", "read_pr"]
-  write_operations: ["post_pr_comment"]
+  read_only: true
   cost: none
-  rate_limited: true
-  rate_limit_note: "GitHub API: 5000 requests/hour for authenticated requests"

@@ -1,0 +1,21 @@
+hooks:
+  on_session_start:
+    - script: scripts/on-start.sh
+      description: Load user progress from memory, detect new users, prime paper index into context
+      timeout: 10
+      compliance: false
+      fail_open: true
+
+  on_session_end:
+    - script: scripts/on-end.sh
+      description: Write session summary to memory/session_notes.md and update user_progress.yaml
+      timeout: 10
+      compliance: false
+      fail_open: true
+
+  on_error:
+    - script: scripts/on-error.sh
+      description: Log errors to memory/session_notes.md and continue in advisory mode
+      timeout: 5
+      compliance: false
+      fail_open: true

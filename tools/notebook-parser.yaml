@@ -1,11 +1,9 @@
-name: notebook_parser
+name: notebook-parser
 version: "0.1.0"
 description: >
   Parse a Jupyter notebook (.ipynb JSON) into a structured array of cells with
   type, source, output, and metadata. Enables reasoning about individual cells
   rather than raw JSON.
-license: MIT
-
 input_schema:
   type: object
   required:
@@ -13,17 +11,16 @@ input_schema:
   properties:
     content:
       type: string
-      description: "Raw .ipynb JSON string, typically piped from github_reader."
+      description: "Raw .ipynb JSON string, typically piped from github-reader."
     filter_cell_type:
       type: string
       enum: ["code", "markdown", "raw", "all"]
       default: "all"
-      description: "Return only cells of this type. 'all' returns every cell."
+      description: "Return only cells of this type."
     include_outputs:
       type: boolean
       default: true
       description: "Whether to include cell execution outputs in the result."
-
 output_schema:
   type: object
   properties:
@@ -34,41 +31,22 @@ output_schema:
         properties:
           index:
             type: integer
-            description: "0-based cell position in the notebook."
           type:
             type: string
-            enum: ["code", "markdown", "raw"]
           source:
             type: string
-            description: "The cell's source text."
           outputs:
             type: array
-            description: "Execution outputs (stdout, stderr, display_data, execute_result)."
           metadata:
             type: object
-            description: "Cell-level metadata tags."
-    kernel_info:
-      type: object
-      properties:
-        language:
-          type: string
-        version:
-          type: string
     cell_count:
       type: integer
-
 implementation:
-  type: builtin
-  handler: json_parse
-  json_path: "$.cells"
+  type: script
+  path: notebook-parser.py
+  runtime: python3
   timeout: 10
-  notes: >
-    Parses the .ipynb JSON structure. The notebook format follows the nbformat 4.x spec.
-    Cell types map directly to nbformat cell_type field values.
-
 annotations:
   requires_confirmation: false
   read_only: true
   cost: none
-  local_execution: true
-  note: "This tool operates on content passed to it — it makes no network requests."

@@ -15,31 +15,27 @@ model:
     temperature: 0.3
     max_tokens: 8192
 skills:
-  - explain_paper
-  - explain_notebook
-  - compare_papers
-  - review_contribution
-  - generate_exercises
-  - summarize_repo
-  - trace_gradient
+  - explain-paper
+  - explain-notebook
+  - compare-papers
+  - review-contribution
+  - generate-exercises
+  - summarize-repo
+  - trace-gradient
 tools:
-  - github_reader
-  - notebook_parser
-  - arxiv_fetcher
+  - github-reader
+  - notebook-parser
+  - arxiv-fetcher
 agents:
-  math_explainer:
+  math-explainer:
     description: Breaks down mathematical derivations and notation into accessible steps
-    source: ./agents/math_explainer
-    version: 0.1.0
     delegation:
       mode: auto
       triggers:
         - math_notation_detected
         - derivation_requested
-  code_reviewer:
+  code-reviewer:
     description: Reviews NumPy implementations for correctness and pedagogical clarity
-    source: ./agents/code_reviewer
-    version: 0.1.0
     delegation:
       mode: auto
       triggers:

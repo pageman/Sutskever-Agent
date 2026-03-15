@@ -1,5 +1,5 @@
 ---
-name: summarize_repo
+name: summarize-repo
 description: Generate a navigable overview of all 30 papers organized by learning track
 license: MIT
 allowed-tools: github_reader

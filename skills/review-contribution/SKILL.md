@@ -1,5 +1,5 @@
 ---
-name: review_contribution
+name: review-contribution
 description: Review a PR or diff to sutskever-30-implementations for correctness and pedagogical structure
 license: MIT
 allowed-tools: github_reader notebook_parser

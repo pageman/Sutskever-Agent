@@ -1,5 +1,5 @@
 ---
-name: compare_papers
+name: compare-papers
 description: Compare two or more papers side-by-side with a table and prose synthesis
 license: MIT
 allowed-tools: arxiv_fetcher github_reader
