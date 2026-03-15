@@ -1,0 +1,101 @@
+name: study_session
+version: "0.1.0"
+description: >
+  Guide a learner through a structured study session covering one paper.
+  Maintains continuity via memory/user_progress.yaml across conversations.
+trigger:
+  type: explicit
+  conditions:
+    - user_says: ["let's study", "continue", "next paper", "start session"]
+    - session_count > 0
+
+steps:
+  - id: load_progress
+    description: Read memory/user_progress.yaml to restore current paper and completed list
+    action: read_memory
+    source: memory/user_progress.yaml
+    fail_open: true
+
+  - id: select_paper
+    description: Resolve which paper to study this session
+    action: resolve
+    depends_on: load_progress
+    logic: |
+      If user specifies a paper: validate against paper_index.yaml
+      If no specification: use current_paper_id from memory
+      If no current_paper_id: use first paper in current_track
+    fallback: Paper 2 (Char-RNN)
+
+  - id: present_paper
+    description: Invoke explain_paper skill
+    action: invoke_skill
+    depends_on: select_paper
+    skill: explain_paper
+    args:
+      paper_id: "{selected_paper_id}"
+
+  - id: walk_notebook
+    description: Invoke explain_notebook skill
+    action: invoke_skill
+    depends_on: present_paper
+    skill: explain_notebook
+    args:
+      notebook_id: "{selected_paper_id}"
+
+  - id: trace_key_gradient
+    description: Invoke trace_gradient on the most important backprop cell
+    action: invoke_skill
+    depends_on: walk_notebook
+    skill: trace_gradient
+    args:
+      notebook_id: "{selected_paper_id}"
+      focus: most_important_backprop_cell
+
+  - id: exercises
+    description: Invoke generate_exercises, present Comprehension tier first
+    action: invoke_skill
+    depends_on: walk_notebook
+    skill: generate_exercises
+    args:
+      paper_id: "{selected_paper_id}"
+      present_tier: 1
+
+  - id: check_understanding
+    description: Ask 2 follow-up questions to verify conceptual understanding
+    action: generate_questions
+    depends_on: exercises
+    count: 2
+    style: targeted
+    note: Questions should probe the paper's key insight and the gradient mechanism
+
+  - id: update_memory
+    description: Mark paper complete and update memory if understanding demonstrated
+    action: write_memory
+    depends_on: check_understanding
+    condition: understanding_demonstrated == true
+    target: memory/user_progress.yaml
+    fields:
+      completed_papers: append("{selected_paper_id}")
+      current_paper_id: "{next_paper_id}"
+      last_session: "{current_date}"
+
+  - id: suggest_next
+    description: Recommend next paper based on track sequence and cross-cluster connections
+    action: lookup_and_recommend
+    depends_on: update_memory
+    source: knowledge/paper_index.yaml
+    logic: |
+      Primary: next paper in current_track sequence
+      Alternative: a paper from related[] of the just-completed paper that is in a different cluster
+      Present both options with one-line rationale for each
+
+  - id: session_summary
+    description: Write session summary to memory/session_notes.md
+    action: write_memory
+    depends_on: [update_memory, suggest_next]
+    target: memory/session_notes.md
+    format: |
+      ## Session — {current_date}
+      Track: {current_track} | Paper studied: {selected_paper_id} ({paper_title}) | Status: {complete_or_in_progress}
+      Next: {suggested_next_paper}
+      Open questions: {any_deferred_questions}

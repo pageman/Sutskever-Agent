@@ -1,0 +1,73 @@
+name: onboard_new_user
+version: "0.1.0"
+description: >
+  Run when a new user first interacts with the agent. Assesses background,
+  assigns a learning track, recommends an entry point, and establishes session context.
+trigger:
+  type: explicit
+  conditions:
+    - session_count == 0
+    - user_says: ["where do I start", "I'm new", "getting started", "help me begin"]
+
+steps:
+  - id: assess_background
+    description: Ask 3 structured questions to gauge ML and NumPy background
+    action: generate_message
+    content: |
+      Welcome. Before we begin, three quick questions to calibrate where we start:
+
+      1. Are you comfortable implementing backpropagation from scratch in NumPy?
+         (a) Yes  (b) I understand the concept but haven't coded it  (c) Not yet
+
+      2. How familiar are you with NumPy broadcasting?
+         (a) I use it daily  (b) I've seen it but it trips me up  (c) Unfamiliar
+
+      3. Have you read any of these papers before?
+         (a) Several from Sutskever's list  (b) One or two  (c) None yet
+
+  - id: map_to_track
+    description: Map responses to one of four learning tracks
+    action: evaluate
+    depends_on: assess_background
+    logic: |
+      Beginner:      backprop=c AND broadcasting=c
+      Intermediate:  backprop=b AND broadcasting in [a,b]
+      Advanced:      backprop=a AND papers in [a,b]
+      Theory:        backprop=a AND papers=a AND user demonstrates theoretical interest
+    fallback:
+      condition: user_declines_assessment
+      result: track=Intermediate, entry=Paper 2
+
+  - id: recommend_entry_point
+    description: Select first paper for the assigned track from sutskever_reading_list.md
+    action: lookup
+    depends_on: map_to_track
+    source: knowledge/sutskever_reading_list.md
+    field: track_entry_points
+
+  - id: present_overview
+    description: Invoke summarize_repo skill filtered to the assigned track
+    action: invoke_skill
+    depends_on: map_to_track
+    skill: summarize_repo
+    args:
+      filter: "{assigned_track}"
+
+  - id: set_session_context
+    description: Write track and starting paper to memory/user_progress.yaml
+    action: write_memory
+    depends_on: [map_to_track, recommend_entry_point]
+    target: memory/user_progress.yaml
+    fields:
+      current_track: "{assigned_track}"
+      current_paper_id: "{entry_point_paper_id}"
+      session_count: 1
+      last_session: "{current_date}"
+
+  - id: offer_first_paper
+    description: Invoke explain_paper skill on the recommended entry point
+    action: invoke_skill
+    depends_on: set_session_context
+    skill: explain_paper
+    args:
+      paper_id: "{entry_point_paper_id}"

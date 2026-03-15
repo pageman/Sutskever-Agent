@@ -1,0 +1,35 @@
+spec_version: "0.1.0"
+name: math-explainer
+version: 0.1.0
+description: >
+  Specialist sub-agent. Breaks down mathematical derivations, notation, and proofs
+  from the Sutskever reading list into accessible step-by-step explanations.
+  Delegates from root sutskever-agent when math_notation_detected or derivation_requested.
+author: pageman
+license: MIT
+model:
+  preferred: claude-sonnet-4-6
+  constraints:
+    temperature: 0.2
+    max_tokens: 4096
+runtime:
+  max_turns: 15
+  timeout: 120
+tags:
+  - math
+  - education
+  - deep-learning
+  - sub-agent
+metadata:
+  parent_agent: sutskever-agent
+  delegation_triggers:
+    - math_notation_detected
+    - derivation_requested
+  expertise:
+    - Chain rule in matrix form
+    - Attention gradient derivations
+    - LSTM gate Jacobians
+    - ELBO derivation for VAEs
+    - CTC forward-backward algorithm
+    - KL divergence and information-theoretic quantities
+    - Scaled dot-product attention softmax gradient

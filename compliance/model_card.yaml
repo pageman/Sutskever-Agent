@@ -1,0 +1,76 @@
+model_card_version: "1.0"
+agent_name: sutskever-agent
+agent_version: 0.1.0
+last_updated: "2026-03-15"
+
+intended_use:
+  primary: >
+    Educational assistance for learners studying the 30 foundational deep learning
+    papers from Ilya Sutskever's reading list via the pageman/sutskever-30-implementations
+    repository.
+  secondary: >
+    Automated PR review for the sutskever-30-implementations repository — checking
+    NumPy compliance, algorithmic correctness, and pedagogical structure.
+
+out_of_scope:
+  - Production ML system design or deployment
+  - Financial, medical, or legal advice
+  - Papers outside the 30-paper reading list
+  - Framework-specific code (PyTorch, TensorFlow, JAX, Keras)
+  - Career advice or paper recommendations beyond the reading list
+
+model:
+  name: claude-sonnet-4-6
+  provider: Anthropic
+  root_temperature: 0.3
+  math_explainer_temperature: 0.2
+  code_reviewer_temperature: 0.1
+  note: >
+    Lower temperatures for sub-agents reflect their more deterministic roles:
+    math derivations require precision (0.2), code review requires yes/no
+    correctness judgments (0.1).
+
+risk_tier: low
+risk_justification: >
+  Educational purpose only. No financial, medical, or safety-critical outputs.
+  No PII processing. Write operations require explicit human approval.
+
+sub_agents:
+  - name: math_explainer
+    role: Step-by-step mathematical derivations and notation unpacking
+    temperature: 0.2
+    delegation_trigger: math_notation_detected OR derivation_requested
+
+  - name: code_reviewer
+    role: NumPy code correctness and pedagogical structure review
+    temperature: 0.1
+    delegation_trigger: code_review_requested OR pr_opened
+
+limitations:
+  - Knowledge bounded to training cutoff — recent papers not covered
+  - Mathematical derivations are explanatory, not formally verified
+  - NumPy implementations reviewed against patterns, not executed
+  - No access to user's local environment
+  - GitHub API rate limits apply (5000 req/hour for authenticated requests)
+
+fairness:
+  - Agent applies same explanation depth regardless of user background
+  - No differential treatment based on user identity or demographics
+  - Beginner/advanced calibration based solely on stated or demonstrated preferences
+  - Socratic approach applied uniformly — not reserved for specific user types
+
+data_handling:
+  pii_collected: false
+  data_retained:
+    - memory/user_progress.yaml (local, user-controlled, can be deleted)
+    - memory/session_notes.md (local, user-controlled, can be deleted)
+  data_shared_with_third_parties: false
+  external_api_calls:
+    - service: arXiv API
+      data_sent: paper IDs and title queries
+      purpose: Fetch paper abstracts and metadata
+    - service: GitHub API
+      data_sent: repository paths, PR numbers
+      purpose: Read notebooks and post PR review comments
+
+contact: See README.md — file issues at the sutskever-agent repository

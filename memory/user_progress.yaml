@@ -1,0 +1,30 @@
+# User Progress — populated at runtime by on_session_end hook
+# Do not edit manually — updated by the agent
+
+user_id: null
+current_track: null
+current_paper_id: null
+completed_papers: []
+session_count: 0
+last_session: null
+open_questions: []
+
+# Memory layer configuration
+layers:
+  - name: working
+    path: session_notes.md
+    max_lines: 300
+    format: markdown
+  - name: archive
+    path: archive/
+    format: yaml
+    rotation: monthly
+
+update_triggers:
+  - on_session_end
+  - on_explicit_save
+
+archive_policy:
+  max_entries: 500
+  compress_after: 30d
+  retention_period: 1y

@@ -1,0 +1,120 @@
+name: pr_review_pipeline
+version: "0.1.0"
+description: >
+  Triggered when a PR is opened in pageman/sutskever-30-implementations.
+  Runs a full technical and pedagogical review and posts findings as a PR comment
+  after human approval.
+trigger:
+  type: event
+  event: on_pr_opened
+  source_repo: pageman/sutskever-30-implementations
+
+steps:
+  - id: fetch_pr
+    description: Fetch PR diff and description via github_reader
+    action: invoke_tool
+    tool: github_reader
+    args:
+      repo: pageman/sutskever-30-implementations
+      operation: read_pr
+      pr_number: "{pr_number}"
+    fail_open: false
+
+  - id: identify_notebook
+    description: Parse diff file list to determine which notebook is modified
+    action: parse_diff
+    depends_on: fetch_pr
+    logic: Extract modified .ipynb filenames, map to paper_index.yaml by filename
+
+  - id: check_numpy_compliance
+    description: Scan diff for disallowed imports per rules/numpy_only.md
+    action: scan_diff
+    depends_on: fetch_pr
+    patterns:
+      - "import torch"
+      - "import tensorflow"
+      - "import tf"
+      - "import jax"
+      - "import keras"
+      - "from torch"
+      - "from tensorflow"
+      - "from jax"
+    on_match:
+      severity: CRITICAL
+      message: "Disallowed framework import detected. Rule: rules/numpy_only.md"
+    fail_open: true
+
+  - id: delegate_code_review
+    description: Hand off to code_reviewer sub-agent with diff and notebook context
+    action: invoke_subagent
+    depends_on: [fetch_pr, identify_notebook]
+    agent: code_reviewer
+    args:
+      diff: "{pr_diff}"
+      paper_context: "{paper_index_entry}"
+      numpy_patterns: knowledge/numpy_patterns.md
+    fail_open: true
+
+  - id: check_pedagogical_structure
+    description: Invoke review_contribution skill for pedagogical review
+    action: invoke_skill
+    depends_on: [fetch_pr, identify_notebook]
+    skill: review_contribution
+    args:
+      pr_diff: "{pr_diff}"
+      notebook_id: "{identified_notebook_id}"
+    fail_open: true
+
+  - id: gradient_audit
+    description: If diff touches backprop cells, invoke trace_gradient
+    action: conditional_invoke_skill
+    depends_on: [fetch_pr, identify_notebook]
+    condition: diff_contains_patterns(["grad", "dW", "d_", "delta", "backward"])
+    skill: trace_gradient
+    args:
+      notebook_id: "{identified_notebook_id}"
+      focus_cells: "{modified_backprop_cell_indices}"
+    fail_open: true
+
+  - id: compile_review
+    description: Aggregate all findings into a single structured review
+    action: aggregate
+    depends_on: [check_numpy_compliance, delegate_code_review, check_pedagogical_structure, gradient_audit]
+    format: |
+      ## Review: PR #{pr_number} — {pr_title}
+
+      ### Correctness
+      {correctness_findings}
+
+      ### NumPy Compliance
+      {compliance_findings}
+
+      ### Pedagogical Structure
+      {structure_findings}
+
+      ### Gradient Check
+      {gradient_findings}
+
+      ### Summary
+      {critical_count} CRITICAL, {warning_count} WARNING, {suggestion_count} SUGGESTION
+
+  - id: human_gate
+    description: Require explicit human approval if any CRITICAL findings exist
+    action: require_approval
+    depends_on: compile_review
+    condition: critical_count > 0
+    message: |
+      PR #{pr_number} review compiled — {critical_count} CRITICAL finding(s) detected.
+      Review ready to post. Approve? [y/n]
+
+  - id: post_review
+    description: Post compiled review as PR comment via github_reader
+    action: invoke_tool
+    depends_on: [compile_review, human_gate]
+    tool: github_reader
+    args:
+      repo: pageman/sutskever-30-implementations
+      operation: post_pr_comment
+      pr_number: "{pr_number}"
+      content: "{compiled_review}"
+    requires_confirmation: true

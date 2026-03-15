@@ -1,0 +1,44 @@
+name: Validate GitAgent Definition
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate and lint sutskever-agent definition
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install gitagent CLI
+        run: npm install -g gitagent
+
+      - name: Print gitagent version
+        run: gitagent --version
+
+      - name: Validate agent definition
+        run: gitagent validate
+        # Validates: agent.yaml schema, SOUL.md presence, all referenced skills/tools/workflows exist,
+        # all referenced knowledge files exist, sub-agent definitions are valid
+
+      - name: Run compliance check
+        run: gitagent validate --compliance
+        # Validates: compliance/model_card.yaml and compliance/audit_report.md are present and complete
+
+      - name: Print agent info
+        run: gitagent info
+        # Prints: agent name, version, model, skills list, tools list, sub-agents — useful as CI artifact

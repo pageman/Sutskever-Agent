@@ -1,0 +1,215 @@
+# Paper Index — sutskever-30-implementations
+# Maps paper numbers to full metadata.
+# Referenced by: explain_paper, explain_notebook, compare_papers,
+#                summarize_repo, trace_gradient, all workflows.
+
+papers:
+  - id: 1
+    title: "The Annotated Transformer"
+    nickname: "annotated-transformer"
+    authors: ["Rush"]
+    year: 2018
+    arxiv_id: null
+    url: "https://nlp.seas.harvard.edu/annotated-transformer/"
+    notebook: "01_annotated_transformer.ipynb"
+    difficulty: theory
+    track: theory
+    cluster: attention_evolution
+    key_concepts: ["transformer", "self-attention", "positional-encoding", "annotation"]
+    numpy_highlight: "full transformer in NumPy with inline annotations"
+    prerequisites: []
+    related: [13, 14, 16]
+    estimated_hours: 4
+
+  - id: 2
+    title: "Generating Sequences With Recurrent Neural Networks"
+    nickname: "char-rnn"
+    authors: ["Graves"]
+    year: 2013
+    arxiv_id: "1308.0850"
+    notebook: "02_char_rnn.ipynb"
+    difficulty: intermediate
+    track: intermediate
+    cluster: sequence_models
+    key_concepts: ["RNN", "LSTM", "character-level-LM", "BPTT"]
+    numpy_highlight: "LSTM cell forward/backward with gradient clipping"
+    prerequisites: []
+    related: [3, 4, 13]
+    estimated_hours: 3
+
+  - id: 3
+    title: "Sequence to Sequence Learning with Neural Networks"
+    nickname: "seq2seq"
+    authors: ["Sutskever", "Vinyals", "Le"]
+    year: 2014
+    arxiv_id: "1409.3215"
+    notebook: "03_seq2seq.ipynb"
+    difficulty: intermediate
+    track: intermediate
+    cluster: sequence_models
+    key_concepts: ["encoder-decoder", "seq2seq", "LSTM", "beam-search"]
+    numpy_highlight: "encoder-decoder LSTM with teacher forcing"
+    prerequisites: [2]
+    related: [2, 6, 14]
+    estimated_hours: 4
+
+  - id: 4
+    title: "Neural Turing Machines"
+    nickname: "ntm"
+    authors: ["Graves", "Wayne", "Danihelka"]
+    year: 2014
+    arxiv_id: "1410.5401"
+    notebook: "04_neural_turing_machine.ipynb"
+    difficulty: intermediate
+    track: intermediate
+    cluster: sequence_models
+    key_concepts: ["differentiable-memory", "addressing", "NTM", "content-based-lookup"]
+    numpy_highlight: "differentiable read/write heads with cosine similarity addressing"
+    prerequisites: [2, 3]
+    related: [2, 20, 18]
+    estimated_hours: 8
+
+  - id: 5
+    title: "A Tutorial Introduction to the Minimum Description Length Principle"
+    nickname: "mdl"
+    authors: ["Grunwald"]
+    year: 2004
+    arxiv_id: "math/0406077"
+    notebook: "05_mdl.ipynb"
+    difficulty: theory
+    track: theory
+    cluster: information_theory
+    key_concepts: ["MDL", "Kolmogorov-complexity", "model-selection", "compression"]
+    numpy_highlight: "MDL code length calculations"
+    prerequisites: []
+    related: [8, 9, 23]
+    estimated_hours: 6
+
+  - id: 6
+    title: "Pointer Networks"
+    nickname: "pointer-networks"
+    authors: ["Vinyals", "Fortunato", "Jaitly"]
+    year: 2015
+    arxiv_id: "1506.03134"
+    notebook: "06_pointer_networks.ipynb"
+    difficulty: intermediate
+    track: intermediate
+    cluster: attention_evolution
+    key_concepts: ["attention-over-inputs", "pointer", "combinatorial-optimization"]
+    numpy_highlight: "attention mechanism pointing to input positions"
+    prerequisites: [3, 14]
+    related: [3, 13, 14]
+    estimated_hours: 4
+
+  - id: 7
+    title: "ImageNet Classification with Deep CNNs (AlexNet)"
+    nickname: "alexnet"
+    authors: ["Krizhevsky", "Sutskever", "Hinton"]
+    year: 2012
+    arxiv_id: "1404.5997"
+    notebook: "07_alexnet.ipynb"
+    difficulty: beginner
+    track: beginner
+    cluster: vision
+    key_concepts: ["CNN", "ReLU", "dropout", "data-augmentation", "GPU-training"]
+    numpy_highlight: "convolutional layers via im2col + matmul"
+    prerequisites: []
+    related: [10, 11, 15]
+    estimated_hours: 4
+
+  - id: 8
+    title: "Kolmogorov Complexity and Algorithmic Randomness"
+    nickname: "kolmogorov"
+    authors: ["Shen", "Uspensky", "Vereshchagin"]
+    year: 2019
+    arxiv_id: null
+    url: "https://www.lirmm.fr/~ashen/kolmbook-eng-scan.pdf"
+    notebook: "08_kolmogorov.ipynb"
+    difficulty: advanced
+    track: advanced
+    cluster: information_theory
+    key_concepts: ["Kolmogorov-complexity", "algorithmic-randomness", "incompressibility"]
+    numpy_highlight: "complexity approximation and compression bounds"
+    prerequisites: [5]
+    related: [5, 9, 19, 23]
+    estimated_hours: 8
+
+  - id: 13
+    title: "Attention Is All You Need"
+    nickname: "transformer"
+    authors: ["Vaswani", "Shazeer", "Parmar", "Uszkoreit", "Jones", "Gomez", "Kaiser", "Polosukhin"]
+    year: 2017
+    arxiv_id: "1706.03762"
+    notebook: "13_attention_is_all_you_need.ipynb"
+    difficulty: intermediate
+    track: intermediate
+    cluster: attention_evolution
+    key_concepts: ["self-attention", "positional-encoding", "multi-head-attention", "encoder-decoder"]
+    numpy_highlight: "scaled dot-product attention via np.matmul + √d_k scaling"
+    prerequisites: [2, 3, 14]
+    related: [6, 14, 16, 18]
+    estimated_hours: 6
+
+  - id: 14
+    title: "Neural Machine Translation by Jointly Learning to Align and Translate"
+    nickname: "bahdanau-attention"
+    authors: ["Bahdanau", "Cho", "Bengio"]
+    year: 2015
+    arxiv_id: "1409.0473"
+    notebook: "14_bahdanau_attention.ipynb"
+    difficulty: intermediate
+    track: intermediate
+    cluster: attention_evolution
+    key_concepts: ["attention", "alignment", "NMT", "soft-attention"]
+    numpy_highlight: "alignment score computation with additive attention"
+    prerequisites: [3]
+    related: [3, 6, 13]
+    estimated_hours: 5
+
+  - id: 15
+    title: "Deep Residual Learning for Image Recognition"
+    nickname: "resnet"
+    authors: ["He", "Zhang", "Ren", "Sun"]
+    year: 2016
+    arxiv_id: "1512.03385"
+    notebook: "15_resnet.ipynb"
+    difficulty: intermediate
+    track: intermediate
+    cluster: vision
+    key_concepts: ["residual-connections", "skip-connections", "batch-norm", "deep-networks"]
+    numpy_highlight: "residual block with skip connection addition"
+    prerequisites: [7, 11]
+    related: [7, 11, 26]
+    estimated_hours: 4
+
+  - id: 17
+    title: "Auto-Encoding Variational Bayes"
+    nickname: "vae"
+    authors: ["Kingma", "Welling"]
+    year: 2013
+    arxiv_id: "1312.6114"
+    notebook: "17_vae.ipynb"
+    difficulty: advanced
+    track: advanced
+    cluster: information_theory
+    key_concepts: ["VAE", "ELBO", "reparameterization", "latent-space", "KL-divergence"]
+    numpy_highlight: "reparameterization trick: z = mu + sigma * eps, eps ~ N(0,I)"
+    prerequisites: []
+    related: [5, 8, 23]
+    estimated_hours: 6
+
+  - id: 18
+    title: "Relational Recurrent Neural Networks"
+    nickname: "relational-rnn"
+    authors: ["Santoro", "Faulkner", "Raposo", "Rae", "Chrzanowski", "Weber", "Wierstra", "Vinyals", "Lillicrap", "Harley"]
+    year: 2018
+    arxiv_id: "1806.01822"
+    notebook: "18_relational_rnn.ipynb"
+    difficulty: advanced
+    track: advanced
+    cluster: sequence_models
+    key_concepts: ["relational-memory", "multi-head-attention", "LSTM", "manual-backprop"]
+    numpy_highlight: "~1100 lines of pure manual backpropagation"
+    prerequisites: [2, 13, 18]
+    related: [4, 13, 20]
+    estimated_hours: 12

@@ -1,0 +1,71 @@
+spec_version: "0.1.0"
+name: sutskever-agent
+version: 0.1.0
+description: >
+  A pedagogical AI agent layered on the sutskever-30-implementations repository.
+  Helps learners understand, implement, and explore the 30 foundational deep learning
+  papers from Ilya Sutskever's reading list — all in pure NumPy.
+author: pageman
+license: MIT
+model:
+  preferred: claude-sonnet-4-6
+  fallback:
+    - claude-haiku-4-5-20251001
+  constraints:
+    temperature: 0.3
+    max_tokens: 8192
+skills:
+  - explain_paper
+  - explain_notebook
+  - compare_papers
+  - review_contribution
+  - generate_exercises
+  - summarize_repo
+  - trace_gradient
+tools:
+  - github_reader
+  - notebook_parser
+  - arxiv_fetcher
+agents:
+  math_explainer:
+    description: Breaks down mathematical derivations and notation into accessible steps
+    source: ./agents/math_explainer
+    version: 0.1.0
+    delegation:
+      mode: auto
+      triggers:
+        - math_notation_detected
+        - derivation_requested
+  code_reviewer:
+    description: Reviews NumPy implementations for correctness and pedagogical clarity
+    source: ./agents/code_reviewer
+    version: 0.1.0
+    delegation:
+      mode: auto
+      triggers:
+        - code_review_requested
+        - pr_opened
+runtime:
+  max_turns: 40
+  timeout: 300
+delegation:
+  mode: auto
+compliance:
+  risk_tier: low
+  supervision:
+    human_in_the_loop: conditional
+    kill_switch: true
+  recordkeeping:
+    audit_logging: true
+    retention_period: 1y
+    immutable: false
+tags:
+  - education
+  - deep-learning
+  - numpy
+  - research-papers
+  - sutskever
+metadata:
+  source_repo: https://github.com/pageman/sutskever-30-implementations
+  notebook_count: 30
+  framework: numpy-only
