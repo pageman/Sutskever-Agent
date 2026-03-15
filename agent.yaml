@@ -6,7 +6,7 @@ description: >
   Helps learners understand, implement, and explore the 30 foundational deep learning
   papers from Ilya Sutskever's reading list — all in pure NumPy.
 author: pageman
-license: MIT
+license: educational
 model:
   preferred: claude-sonnet-4-6
   fallback:

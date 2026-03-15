@@ -1,7 +1,7 @@
 ---
 name: review-contribution
 description: Review a PR or diff to sutskever-30-implementations for correctness and pedagogical structure
-license: MIT
+license: educational
 allowed-tools: github_reader notebook_parser
 metadata:
   author: pageman

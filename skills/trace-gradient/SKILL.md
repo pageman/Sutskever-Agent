@@ -1,7 +1,7 @@
 ---
 name: trace-gradient
 description: Walk the chain rule backwards from loss to input for any notebook's backprop cells
-license: MIT
+license: educational
 allowed-tools: notebook_parser github_reader
 metadata:
   author: pageman

@@ -6,7 +6,7 @@ description: >
   correctness, numerical stability, pedagogical clarity, and compliance with the numpy-only rule.
   Delegates from root sutskever-agent on code_review_requested or pr_opened events.
 author: pageman
-license: MIT
+license: educational
 model:
   preferred: claude-sonnet-4-6
   constraints:

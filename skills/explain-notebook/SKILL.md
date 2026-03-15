@@ -1,7 +1,7 @@
 ---
 name: explain-notebook
 description: Walk through a notebook cell-by-cell with shape annotations and gradient moment identification
-license: MIT
+license: educational
 allowed-tools: github_reader notebook_parser
 metadata:
   author: pageman

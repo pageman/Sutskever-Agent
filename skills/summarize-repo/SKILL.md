@@ -1,7 +1,7 @@
 ---
 name: summarize-repo
 description: Generate a navigable overview of all 30 papers organized by learning track
-license: MIT
+license: educational
 allowed-tools: github_reader
 metadata:
   author: pageman

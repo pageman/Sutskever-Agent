@@ -1,7 +1,7 @@
 ---
 name: compare-papers
 description: Compare two or more papers side-by-side with a table and prose synthesis
-license: MIT
+license: educational
 allowed-tools: arxiv_fetcher github_reader
 metadata:
   author: pageman

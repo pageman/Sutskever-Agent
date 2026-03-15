@@ -6,7 +6,7 @@ description: >
   from the Sutskever reading list into accessible step-by-step explanations.
   Delegates from root sutskever-agent when math_notation_detected or derivation_requested.
 author: pageman
-license: MIT
+license: educational
 model:
   preferred: claude-sonnet-4-6
   constraints:

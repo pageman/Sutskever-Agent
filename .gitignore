@@ -1,4 +1,56 @@
+# gitagent runtime
 node_modules/
 .gitagent/
-exports/*
-!exports/**/.gitkeep
+
+# Exports are generated artifacts — run `gitagent export --format <fmt> --output exports/<fmt>`
+exports/
+
+# Runtime memory — populated during agent sessions, not source-controlled
+memory/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Environments
+.env
+.venv
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# macOS / Windows / Linux
+.DS_Store
+Thumbs.db
+
+# Logs and artifacts
+*.log
+*.pkl
+*.h5
+*.pt
+*.pth
+*.ckpt
+
+# Data directories
+data/
+datasets/
+checkpoints/
+outputs/
+runs/
+wandb/

@@ -1,7 +1,7 @@
 ---
 name: generate-exercises
 description: Generate 3-tier exercises (Comprehension, Extension, Research) for any paper/notebook
-license: MIT
+license: educational
 allowed-tools: github_reader notebook_parser
 metadata:
   author: pageman
