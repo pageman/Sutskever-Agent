@@ -7,7 +7,7 @@ Each pattern includes: canonical implementation, shape annotations, common mista
 
 ## 1. Numerically Stable Softmax
 
-**Papers:** 13, 14, 16, 28, 30 and any paper with attention
+**Papers:** 13, 14, 16, 18, 28, 30 and any paper with attention
 
 ```python
 def softmax(x):
@@ -25,7 +25,7 @@ but prevents overflow in np.exp().
 
 ## 2. Batched Matrix Multiplication
 
-**Papers:** 13, 14, 16, 18, 28
+**Papers:** 13, 14, 16, 18, 28, 30
 
 Three equivalent approaches:
 
@@ -107,7 +107,7 @@ This is the key performance trick: converts convolution to matmul.
 
 ## 6. Gradient Clipping
 
-**Papers:** 2, 3, 4, 18 (any paper with RNN backprop through time)
+**Papers:** 2, 3, 4, 18, 20 (any paper with RNN backprop through time)
 
 ```python
 # Clip all parameter gradients to prevent explosion
@@ -123,7 +123,7 @@ Even LSTM papers clip as a safety measure (Paper 2 clips at ±5).
 
 ## 7. Broadcasting for Attention Score Computation
 
-**Papers:** 13, 14, 16, 28, 30
+**Papers:** 13, 14, 16, 18, 28, 30
 
 ```python
 # Scaled dot-product attention
@@ -144,7 +144,7 @@ output = np.matmul(attn_weights, V)               # (batch, heads, seq_q, d_v)
 
 ## 8. Sequence Padding and Masking
 
-**Papers:** 3, 13, 14, 21
+**Papers:** 8, 13, 14, 21
 
 ```python
 # Create padding mask: 1 where token is real, 0 where padded
@@ -193,7 +193,7 @@ The fused W matrix (pedagogical notebooks often use separate matrices for clarit
 
 ## 10. Numerical Gradient Checking
 
-**Papers:** 18 (used to verify the 1100-line backward pass)
+**Papers:** 18, 20 (used to verify the 1100-line backward pass in Paper 18; NTM in Paper 20)
 
 ```python
 def numerical_gradient(loss_fn, param, epsilon=1e-5):

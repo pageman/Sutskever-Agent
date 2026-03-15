@@ -1,89 +1,102 @@
 # Paper Index — sutskever-30-implementations
 # Maps paper numbers to full metadata.
-# Referenced by: explain_paper, explain_notebook, compare_papers,
-#                summarize_repo, trace_gradient, all workflows.
+# Source: pageman/sutskever-30-implementations README
+# Referenced by: explain-paper, explain-notebook, compare-papers,
+#                summarize-repo, trace-gradient, all workflows.
 
 papers:
+
+  # ─── Section 1: Foundational Concepts (Papers 1–5) ───────────────────────
+
   - id: 1
-    title: "The Annotated Transformer"
-    nickname: "annotated-transformer"
-    authors: ["Rush"]
-    year: 2018
+    title: "The First Law of Complexodynamics"
+    nickname: "complexodynamics"
+    authors: ["Aaronson"]
+    year: 2011
     arxiv_id: null
-    url: "https://nlp.seas.harvard.edu/annotated-transformer/"
-    notebook: "01_annotated_transformer.ipynb"
-    difficulty: theory
-    track: theory
-    cluster: attention_evolution
-    key_concepts: ["transformer", "self-attention", "positional-encoding", "annotation"]
-    numpy_highlight: "full transformer in NumPy with inline annotations"
-    prerequisites: []
-    related: [13, 14, 16]
-    estimated_hours: 4
-
-  - id: 2
-    title: "Generating Sequences With Recurrent Neural Networks"
-    nickname: "char-rnn"
-    authors: ["Graves"]
-    year: 2013
-    arxiv_id: "1308.0850"
-    notebook: "02_char_rnn.ipynb"
-    difficulty: intermediate
-    track: intermediate
-    cluster: sequence_models
-    key_concepts: ["RNN", "LSTM", "character-level-LM", "BPTT"]
-    numpy_highlight: "LSTM cell forward/backward with gradient clipping"
-    prerequisites: []
-    related: [3, 4, 13]
-    estimated_hours: 3
-
-  - id: 3
-    title: "Sequence to Sequence Learning with Neural Networks"
-    nickname: "seq2seq"
-    authors: ["Sutskever", "Vinyals", "Le"]
-    year: 2014
-    arxiv_id: "1409.3215"
-    notebook: "03_seq2seq.ipynb"
-    difficulty: intermediate
-    track: intermediate
-    cluster: sequence_models
-    key_concepts: ["encoder-decoder", "seq2seq", "LSTM", "beam-search"]
-    numpy_highlight: "encoder-decoder LSTM with teacher forcing"
-    prerequisites: [2]
-    related: [2, 6, 14]
-    estimated_hours: 4
-
-  - id: 4
-    title: "Neural Turing Machines"
-    nickname: "ntm"
-    authors: ["Graves", "Wayne", "Danihelka"]
-    year: 2014
-    arxiv_id: "1410.5401"
-    notebook: "04_neural_turing_machine.ipynb"
-    difficulty: intermediate
-    track: intermediate
-    cluster: sequence_models
-    key_concepts: ["differentiable-memory", "addressing", "NTM", "content-based-lookup"]
-    numpy_highlight: "differentiable read/write heads with cosine similarity addressing"
-    prerequisites: [2, 3]
-    related: [2, 20, 18]
-    estimated_hours: 8
-
-  - id: 5
-    title: "A Tutorial Introduction to the Minimum Description Length Principle"
-    nickname: "mdl"
-    authors: ["Grunwald"]
-    year: 2004
-    arxiv_id: "math/0406077"
-    notebook: "05_mdl.ipynb"
+    url: "https://scottaaronson.blog/?p=762"
+    notebook: "01_complexity_dynamics.ipynb"
+    section: "Foundational Concepts"
     difficulty: theory
     track: theory
     cluster: information_theory
-    key_concepts: ["MDL", "Kolmogorov-complexity", "model-selection", "compression"]
-    numpy_highlight: "MDL code length calculations"
+    key_concepts: ["complexity", "entropy", "second-law", "sophistication", "thermodynamics"]
+    numpy_highlight: "entropy and complexity metrics over discrete state distributions"
     prerequisites: []
-    related: [8, 9, 23]
-    estimated_hours: 6
+    related: [5, 19, 23, 25]
+    estimated_hours: 3
+
+  - id: 2
+    title: "The Unreasonable Effectiveness of Recurrent Neural Networks"
+    nickname: "char-rnn"
+    authors: ["Karpathy"]
+    year: 2015
+    arxiv_id: null
+    url: "https://karpathy.github.io/2015/05/21/rnn-effectiveness/"
+    notebook: "02_char_rnn_karpathy.ipynb"
+    section: "Foundational Concepts"
+    difficulty: beginner
+    track: beginner
+    cluster: sequence_models
+    key_concepts: ["RNN", "character-level-LM", "sampling", "temperature", "BPTT"]
+    numpy_highlight: "vanilla RNN forward/backward with character-level language model"
+    prerequisites: []
+    related: [3, 4, 8]
+    estimated_hours: 2
+
+  - id: 3
+    title: "Understanding LSTM Networks"
+    nickname: "lstm"
+    authors: ["Olah"]
+    year: 2015
+    arxiv_id: null
+    url: "https://colah.github.io/posts/2015-08-Understanding-LSTMs/"
+    notebook: "03_lstm_understanding.ipynb"
+    section: "Foundational Concepts"
+    difficulty: beginner
+    track: beginner
+    cluster: sequence_models
+    key_concepts: ["LSTM", "forget-gate", "input-gate", "output-gate", "cell-state", "vanishing-gradient"]
+    numpy_highlight: "LSTM cell step with all four gates, vectorized and annotated"
+    prerequisites: [2]
+    related: [2, 4, 18, 20]
+    estimated_hours: 2
+
+  - id: 4
+    title: "Recurrent Neural Network Regularization"
+    nickname: "rnn-regularization"
+    authors: ["Zaremba", "Sutskever", "Vinyals"]
+    year: 2014
+    arxiv_id: "1409.2329"
+    notebook: "04_rnn_regularization.ipynb"
+    section: "Foundational Concepts"
+    difficulty: beginner
+    track: beginner
+    cluster: sequence_models
+    key_concepts: ["dropout", "LSTM", "regularization", "language-model", "perplexity"]
+    numpy_highlight: "dropout mask applied between LSTM layers, not within recurrent connections"
+    prerequisites: [2, 3]
+    related: [2, 3, 18]
+    estimated_hours: 2
+
+  - id: 5
+    title: "Keeping Neural Networks Simple by Minimizing the Description Length of the Weights"
+    nickname: "mdl-weights"
+    authors: ["Hinton", "van Camp"]
+    year: 1993
+    arxiv_id: null
+    notebook: "05_neural_network_pruning.ipynb"
+    section: "Foundational Concepts"
+    difficulty: theory
+    track: theory
+    cluster: information_theory
+    key_concepts: ["MDL", "weight-compression", "description-length", "Bayesian-prior", "regularization"]
+    numpy_highlight: "code-length computation for weight matrices under Gaussian prior"
+    prerequisites: []
+    related: [1, 23, 25]
+    estimated_hours: 5
+
+  # ─── Section 2: Architectures & Mechanisms (Papers 6–15) ──────────────────
 
   - id: 6
     title: "Pointer Networks"
@@ -92,47 +105,117 @@ papers:
     year: 2015
     arxiv_id: "1506.03134"
     notebook: "06_pointer_networks.ipynb"
+    section: "Architectures & Mechanisms"
     difficulty: intermediate
     track: intermediate
     cluster: attention_evolution
-    key_concepts: ["attention-over-inputs", "pointer", "combinatorial-optimization"]
-    numpy_highlight: "attention mechanism pointing to input positions"
-    prerequisites: [3, 14]
-    related: [3, 13, 14]
+    key_concepts: ["attention-over-inputs", "pointer", "combinatorial-optimization", "convex-hull", "TSP"]
+    numpy_highlight: "attention mechanism pointing to input positions rather than fixed output vocabulary"
+    prerequisites: [14]
+    related: [8, 13, 14]
     estimated_hours: 4
 
   - id: 7
-    title: "ImageNet Classification with Deep CNNs (AlexNet)"
+    title: "ImageNet Classification with Deep Convolutional Neural Networks"
     nickname: "alexnet"
     authors: ["Krizhevsky", "Sutskever", "Hinton"]
     year: 2012
     arxiv_id: "1404.5997"
-    notebook: "07_alexnet.ipynb"
+    notebook: "07_alexnet_cnn.ipynb"
+    section: "Architectures & Mechanisms"
     difficulty: beginner
     track: beginner
     cluster: vision
-    key_concepts: ["CNN", "ReLU", "dropout", "data-augmentation", "GPU-training"]
-    numpy_highlight: "convolutional layers via im2col + matmul"
+    key_concepts: ["CNN", "ReLU", "dropout", "data-augmentation", "local-response-normalization"]
+    numpy_highlight: "convolutional layers via im2col + matmul, max-pooling, ReLU"
     prerequisites: []
-    related: [10, 11, 15]
+    related: [10, 11, 15, 26]
     estimated_hours: 4
 
   - id: 8
-    title: "Kolmogorov Complexity and Algorithmic Randomness"
-    nickname: "kolmogorov"
-    authors: ["Shen", "Uspensky", "Vereshchagin"]
+    title: "Order Matters: Sequence to Sequence for Sets"
+    nickname: "seq2seq-sets"
+    authors: ["Vinyals", "Bengio", "Kudlur"]
+    year: 2016
+    arxiv_id: "1511.06391"
+    notebook: "08_seq2seq_for_sets.ipynb"
+    section: "Architectures & Mechanisms"
+    difficulty: intermediate
+    track: intermediate
+    cluster: sequence_models
+    key_concepts: ["input-ordering", "seq2seq", "sets", "LSTM", "read-process-write"]
+    numpy_highlight: "attention-based input reader with order-invariant processing"
+    prerequisites: [6]
+    related: [6, 13, 14]
+    estimated_hours: 4
+
+  - id: 9
+    title: "GPipe: Easy Scaling with Micro-Batch Pipeline Parallelism"
+    nickname: "gpipe"
+    authors: ["Huang", "Cheng", "Bapna", "Firat", "Chen", "Chen", "Lee", "Ngiam", "Le", "Wu", "Chen"]
     year: 2019
-    arxiv_id: null
-    url: "https://www.lirmm.fr/~ashen/kolmbook-eng-scan.pdf"
-    notebook: "08_kolmogorov.ipynb"
-    difficulty: advanced
-    track: advanced
-    cluster: information_theory
-    key_concepts: ["Kolmogorov-complexity", "algorithmic-randomness", "incompressibility"]
-    numpy_highlight: "complexity approximation and compression bounds"
-    prerequisites: [5]
-    related: [5, 9, 19, 23]
-    estimated_hours: 8
+    arxiv_id: "1811.06965"
+    notebook: "09_gpipe.ipynb"
+    section: "Architectures & Mechanisms"
+    difficulty: intermediate
+    track: intermediate
+    cluster: infrastructure_scaling
+    key_concepts: ["pipeline-parallelism", "micro-batches", "re-materialization", "gradient-accumulation", "model-parallelism"]
+    numpy_highlight: "pipeline stage simulation with micro-batch gradient accumulation"
+    prerequisites: []
+    related: [22, 27]
+    estimated_hours: 3
+
+  - id: 10
+    title: "Deep Residual Learning for Image Recognition"
+    nickname: "resnet"
+    authors: ["He", "Zhang", "Ren", "Sun"]
+    year: 2016
+    arxiv_id: "1512.03385"
+    notebook: "10_resnet_deep_residual.ipynb"
+    section: "Architectures & Mechanisms"
+    difficulty: intermediate
+    track: intermediate
+    cluster: vision
+    key_concepts: ["residual-connections", "skip-connections", "batch-norm", "degradation-problem", "deep-networks"]
+    numpy_highlight: "residual block with skip connection addition and He initialization"
+    prerequisites: [7]
+    related: [7, 11, 15, 26]
+    estimated_hours: 4
+
+  - id: 11
+    title: "Multi-Scale Context Aggregation by Dilated Convolutions"
+    nickname: "dilated-conv"
+    authors: ["Yu", "Koltun"]
+    year: 2016
+    arxiv_id: "1511.07122"
+    notebook: "11_dilated_convolutions.ipynb"
+    section: "Architectures & Mechanisms"
+    difficulty: intermediate
+    track: intermediate
+    cluster: vision
+    key_concepts: ["dilated-convolution", "receptive-field", "multi-scale", "semantic-segmentation", "atrous"]
+    numpy_highlight: "dilated convolution via stride_tricks with exponentially growing dilation factors"
+    prerequisites: [7, 10]
+    related: [7, 10, 15]
+    estimated_hours: 3
+
+  - id: 12
+    title: "Neural Message Passing for Quantum Chemistry"
+    nickname: "mpnn"
+    authors: ["Gilmer", "Schütt", "Niepert", "Hammerla", "Schütt"]
+    year: 2017
+    arxiv_id: "1704.01212"
+    notebook: "12_graph_neural_networks.ipynb"
+    section: "Architectures & Mechanisms"
+    difficulty: intermediate
+    track: intermediate
+    cluster: graphs_and_gnns
+    key_concepts: ["message-passing", "graph-neural-network", "molecular-property-prediction", "readout", "aggregation"]
+    numpy_highlight: "message aggregation over adjacency matrix with node feature update"
+    prerequisites: []
+    related: [16]
+    estimated_hours: 4
 
   - id: 13
     title: "Attention Is All You Need"
@@ -141,12 +224,13 @@ papers:
     year: 2017
     arxiv_id: "1706.03762"
     notebook: "13_attention_is_all_you_need.ipynb"
+    section: "Architectures & Mechanisms"
     difficulty: intermediate
     track: intermediate
     cluster: attention_evolution
-    key_concepts: ["self-attention", "positional-encoding", "multi-head-attention", "encoder-decoder"]
-    numpy_highlight: "scaled dot-product attention via np.matmul + √d_k scaling"
-    prerequisites: [2, 3, 14]
+    key_concepts: ["self-attention", "multi-head-attention", "positional-encoding", "encoder-decoder", "scaled-dot-product"]
+    numpy_highlight: "scaled dot-product attention: Q @ K.T / sqrt(d_k), then softmax, then @ V"
+    prerequisites: [14]
     related: [6, 14, 16, 18]
     estimated_hours: 6
 
@@ -157,45 +241,67 @@ papers:
     year: 2015
     arxiv_id: "1409.0473"
     notebook: "14_bahdanau_attention.ipynb"
+    section: "Architectures & Mechanisms"
     difficulty: intermediate
     track: intermediate
     cluster: attention_evolution
-    key_concepts: ["attention", "alignment", "NMT", "soft-attention"]
-    numpy_highlight: "alignment score computation with additive attention"
-    prerequisites: [3]
-    related: [3, 6, 13]
+    key_concepts: ["additive-attention", "alignment", "NMT", "soft-attention", "context-vector"]
+    numpy_highlight: "alignment score via tanh(W1 @ s + W2 @ h), then softmax over source positions"
+    prerequisites: [4]
+    related: [6, 8, 13]
     estimated_hours: 5
 
   - id: 15
-    title: "Deep Residual Learning for Image Recognition"
-    nickname: "resnet"
+    title: "Identity Mappings in Deep Residual Networks"
+    nickname: "resnet-v2"
     authors: ["He", "Zhang", "Ren", "Sun"]
     year: 2016
-    arxiv_id: "1512.03385"
-    notebook: "15_resnet.ipynb"
+    arxiv_id: "1603.05027"
+    notebook: "15_identity_mappings_resnet.ipynb"
+    section: "Architectures & Mechanisms"
     difficulty: intermediate
     track: intermediate
     cluster: vision
-    key_concepts: ["residual-connections", "skip-connections", "batch-norm", "deep-networks"]
-    numpy_highlight: "residual block with skip connection addition"
-    prerequisites: [7, 11]
-    related: [7, 11, 26]
+    key_concepts: ["pre-activation", "identity-shortcut", "batch-norm-placement", "ResNet-v2", "gradient-flow"]
+    numpy_highlight: "BN → ReLU → Conv ordering vs. original Conv → BN → ReLU"
+    prerequisites: [10]
+    related: [10, 11, 26]
+    estimated_hours: 3
+
+  # ─── Section 3: Advanced Topics (Papers 16–22) ────────────────────────────
+
+  - id: 16
+    title: "A Simple Neural Network Module for Relational Reasoning"
+    nickname: "relation-network"
+    authors: ["Santoro", "Raposo", "Barrett", "Malinowski", "Pascanu", "Battaglia", "Lillicrap"]
+    year: 2017
+    arxiv_id: "1706.01427"
+    notebook: "16_relational_reasoning.ipynb"
+    section: "Advanced Topics"
+    difficulty: intermediate
+    track: intermediate
+    cluster: attention_evolution
+    key_concepts: ["relation-network", "object-pairs", "relational-reasoning", "visual-QA", "pairwise-MLP"]
+    numpy_highlight: "all pairwise object combinations via broadcasting, then shared MLP aggregation"
+    prerequisites: [13]
+    related: [12, 18]
     estimated_hours: 4
 
   - id: 17
-    title: "Auto-Encoding Variational Bayes"
-    nickname: "vae"
-    authors: ["Kingma", "Welling"]
-    year: 2013
-    arxiv_id: "1312.6114"
-    notebook: "17_vae.ipynb"
+    title: "Variational Lossy Autoencoder"
+    nickname: "vlae"
+    authors: ["Chen", "Kingma", "Salimans", "Duan", "Dhariwal", "Schulman", "Sutskever", "Abbeel"]
+    year: 2017
+    arxiv_id: "1611.02731"
+    notebook: "17_variational_autoencoder.ipynb"
+    section: "Advanced Topics"
     difficulty: advanced
     track: advanced
-    cluster: information_theory
-    key_concepts: ["VAE", "ELBO", "reparameterization", "latent-space", "KL-divergence"]
+    cluster: generative_models
+    key_concepts: ["VAE", "ELBO", "reparameterization", "lossy-compression", "information-preference", "KL-divergence"]
     numpy_highlight: "reparameterization trick: z = mu + sigma * eps, eps ~ N(0,I)"
     prerequisites: []
-    related: [5, 8, 23]
+    related: [5, 23, 25]
     estimated_hours: 6
 
   - id: 18
@@ -205,11 +311,222 @@ papers:
     year: 2018
     arxiv_id: "1806.01822"
     notebook: "18_relational_rnn.ipynb"
+    section: "Advanced Topics"
     difficulty: advanced
     track: advanced
     cluster: sequence_models
-    key_concepts: ["relational-memory", "multi-head-attention", "LSTM", "manual-backprop"]
-    numpy_highlight: "~1100 lines of pure manual backpropagation"
-    prerequisites: [2, 13, 18]
-    related: [4, 13, 20]
+    key_concepts: ["relational-memory", "multi-head-attention", "LSTM", "manual-backprop", "memory-slots"]
+    numpy_highlight: "~1100 lines of pure manual backpropagation through attention and LSTM layers"
+    prerequisites: [4, 13]
+    related: [16, 20]
     estimated_hours: 12
+
+  - id: 19
+    title: "The Coffee Automaton"
+    nickname: "coffee-automaton"
+    authors: ["Aaronson", "Carroll", "Ouellette"]
+    year: 2014
+    arxiv_id: null
+    url: "https://arxiv.org/abs/1405.6903"
+    notebook: "19_coffee_automaton.ipynb"
+    section: "Advanced Topics"
+    difficulty: theory
+    track: theory
+    cluster: information_theory
+    key_concepts: ["complexity", "second-law", "mixing", "coarse-graining", "entropy-vs-complexity"]
+    numpy_highlight: "cellular automaton simulation measuring complexity over time"
+    prerequisites: []
+    related: [1, 5, 23]
+    estimated_hours: 3
+
+  - id: 20
+    title: "Neural Turing Machines"
+    nickname: "ntm"
+    authors: ["Graves", "Wayne", "Danihelka"]
+    year: 2014
+    arxiv_id: "1410.5401"
+    notebook: "20_neural_turing_machine.ipynb"
+    section: "Advanced Topics"
+    difficulty: advanced
+    track: advanced
+    cluster: sequence_models
+    key_concepts: ["differentiable-memory", "addressing", "content-based-lookup", "location-based", "read-write-heads"]
+    numpy_highlight: "differentiable read/write heads with cosine similarity content addressing"
+    prerequisites: [4, 14]
+    related: [3, 18]
+    estimated_hours: 8
+
+  - id: 21
+    title: "Deep Speech 2: End-to-End Speech Recognition in English and Mandarin"
+    nickname: "deep-speech-2"
+    authors: ["Amodei", "Anubhai", "Battenberg", "Case", "Casper", "Catanzaro", "Cheng", "Chen", "Childress", "Coates", "Diamos", "Elsen", "Engel", "Fan", "Fougner", "Han", "Hannun", "Jun", "LeGresley", "Lin", "Liu", "Narang", "Ng", "Sheng", "Song", "Sorensen", "Ström", "Xu", "Zhao"]
+    year: 2016
+    arxiv_id: "1512.02595"
+    notebook: "21_ctc_speech.ipynb"
+    section: "Advanced Topics"
+    difficulty: advanced
+    track: advanced
+    cluster: speech
+    key_concepts: ["CTC", "connectionist-temporal-classification", "end-to-end", "speech-recognition", "blank-token"]
+    numpy_highlight: "CTC forward algorithm via log-sum-exp over all valid alignments"
+    prerequisites: [4]
+    related: [8]
+    estimated_hours: 8
+
+  - id: 22
+    title: "Scaling Laws for Neural Language Models"
+    nickname: "scaling-laws"
+    authors: ["Kaplan", "McCandlish", "Henighan", "Brown", "Chess", "Child", "Gray", "Radford", "Wu", "Amodei"]
+    year: 2020
+    arxiv_id: "2001.08361"
+    notebook: "22_scaling_laws.ipynb"
+    section: "Advanced Topics"
+    difficulty: intermediate
+    track: intermediate
+    cluster: infrastructure_scaling
+    key_concepts: ["scaling-laws", "power-law", "compute-optimal", "model-size", "data-size", "loss-prediction"]
+    numpy_highlight: "log-log regression fitting power-law relationships between scale and loss"
+    prerequisites: []
+    related: [9, 27]
+    estimated_hours: 4
+
+  # ─── Section 4: Theory & Meta-Learning (Papers 23–30) ─────────────────────
+
+  - id: 23
+    title: "A Tutorial Introduction to the Minimum Description Length Principle"
+    nickname: "mdl-tutorial"
+    authors: ["Grünwald"]
+    year: 2004
+    arxiv_id: "math/0406077"
+    notebook: "23_mdl_principle.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: theory
+    track: theory
+    cluster: information_theory
+    key_concepts: ["MDL", "model-selection", "code-length", "stochastic-complexity", "two-part-code"]
+    numpy_highlight: "MDL code length calculations for polynomial model selection"
+    prerequisites: [5]
+    related: [1, 5, 19, 25]
+    estimated_hours: 6
+
+  - id: 24
+    title: "Machine Super Intelligence"
+    nickname: "machine-super-intelligence"
+    authors: ["Legg"]
+    year: 2008
+    arxiv_id: null
+    url: "https://www.vetta.org/documents/Machine_Super_Intelligence.pdf"
+    notebook: "24_machine_super_intelligence.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: theory
+    track: theory
+    cluster: information_theory
+    key_concepts: ["universal-intelligence", "AIXI", "reward-maximization", "Kolmogorov-complexity", "intelligence-measure"]
+    numpy_highlight: "universal intelligence approximation via weighted sum over environments"
+    prerequisites: []
+    related: [25, 23]
+    estimated_hours: 5
+
+  - id: 25
+    title: "Kolmogorov Complexity and Algorithmic Randomness"
+    nickname: "kolmogorov"
+    authors: ["Shen", "Uspensky", "Vereshchagin"]
+    year: 2019
+    arxiv_id: null
+    url: "https://www.lirmm.fr/~ashen/kolmbook-eng-scan.pdf"
+    notebook: "25_kolmogorov_complexity.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: advanced
+    track: advanced
+    cluster: information_theory
+    key_concepts: ["Kolmogorov-complexity", "algorithmic-randomness", "incompressibility", "prefix-free", "universal-prior"]
+    numpy_highlight: "complexity approximation and compression bounds via LZ-based estimators"
+    prerequisites: [23]
+    related: [1, 5, 19, 23, 24]
+    estimated_hours: 8
+
+  - id: 26
+    title: "CS231n: Convolutional Neural Networks for Visual Recognition"
+    nickname: "cs231n"
+    authors: ["Li", "Johnson", "Yeung"]
+    year: 2022
+    arxiv_id: null
+    url: "https://cs231n.github.io/"
+    notebook: "26_cs231n_cnn_fundamentals.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: beginner
+    track: beginner
+    cluster: vision
+    key_concepts: ["backpropagation", "weight-gradients", "computational-graph", "im2col", "batch-norm"]
+    numpy_highlight: "complete CNN backpropagation from scratch with shape annotations"
+    prerequisites: [7, 10]
+    related: [7, 10, 11, 15]
+    estimated_hours: 4
+
+  - id: 27
+    title: "Better & Faster Large Language Models via Multi-token Prediction"
+    nickname: "multi-token-prediction"
+    authors: ["Gloeckle", "Idrissi", "Rozière", "Lopez-Paz", "Synnaeve"]
+    year: 2024
+    arxiv_id: "2404.19737"
+    notebook: "27_multi_token_prediction.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: intermediate
+    track: intermediate
+    cluster: infrastructure_scaling
+    key_concepts: ["multi-token-prediction", "parallel-heads", "speculative-decoding", "sample-efficiency", "next-n-token"]
+    numpy_highlight: "n independent prediction heads sharing a trunk, loss summed across positions"
+    prerequisites: []
+    related: [9, 22]
+    estimated_hours: 4
+
+  - id: 28
+    title: "Dense Passage Retrieval for Open-Domain Question Answering"
+    nickname: "dpr"
+    authors: ["Karpukhin", "Oğuz", "Min", "Lewis", "Wu", "Edunov", "Chen", "Yih"]
+    year: 2020
+    arxiv_id: "2004.04906"
+    notebook: "28_dense_passage_retrieval.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: intermediate
+    track: intermediate
+    cluster: retrieval_and_context
+    key_concepts: ["dense-retrieval", "bi-encoder", "dot-product-similarity", "FAISS", "open-domain-QA"]
+    numpy_highlight: "bi-encoder dot-product similarity with in-batch negative sampling"
+    prerequisites: []
+    related: [29, 30]
+    estimated_hours: 4
+
+  - id: 29
+    title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+    nickname: "rag"
+    authors: ["Lewis", "Perez", "Piktus", "Petroni", "Karpukhin", "Goyal", "Küttler", "Lewis", "Yih", "Rocktäschel", "Riedel", "Kiela"]
+    year: 2020
+    arxiv_id: "2005.11401"
+    notebook: "29_rag.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: intermediate
+    track: intermediate
+    cluster: retrieval_and_context
+    key_concepts: ["RAG", "retrieval-augmented", "marginalization", "open-domain-QA", "retrieve-and-generate"]
+    numpy_highlight: "marginalizing over top-k retrieved passages via log-sum-exp"
+    prerequisites: [28]
+    related: [28, 30]
+    estimated_hours: 4
+
+  - id: 30
+    title: "Lost in the Middle: How Language Models Use Long Contexts"
+    nickname: "lost-in-middle"
+    authors: ["Liu", "Lin", "Hewitt", "Paranjape", "Bevilacqua", "Petroni", "Liang"]
+    year: 2023
+    arxiv_id: "2307.03172"
+    notebook: "30_lost_in_middle.ipynb"
+    section: "Theory & Meta-Learning"
+    difficulty: intermediate
+    track: intermediate
+    cluster: retrieval_and_context
+    key_concepts: ["position-bias", "recency-bias", "primacy-bias", "long-context", "attention-over-context"]
+    numpy_highlight: "position-weighted retrieval scoring to model U-shaped attention bias"
+    prerequisites: [13, 29]
+    related: [28, 29]
+    estimated_hours: 3
