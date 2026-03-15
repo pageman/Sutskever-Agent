@@ -1,0 +1,26 @@
+# Regulatory Map — sutskever-agent
+# This agent operates in an educational context with no regulated industry exposure.
+# Financial, healthcare, and legal frameworks are explicitly out of scope.
+
+agent: sutskever-agent
+version: 0.1.0
+risk_tier: low
+
+applicable_frameworks: []
+
+non_applicable_frameworks:
+  - framework: FINRA
+    reason: No financial services, no customer communications, no trading activity
+  - framework: SEC-17a-4
+    reason: No securities transactions or financial recordkeeping
+  - framework: SR-11-7
+    reason: No model risk in a regulated financial institution context
+  - framework: CFPB-Reg-SP
+    reason: No consumer financial data processed
+  - framework: HIPAA
+    reason: No health information processed
+
+educational_use_notes: >
+  This agent is solely for learning about deep learning papers and their
+  NumPy implementations. All outputs are pedagogical. No decisions with
+  real-world consequences are made or recommended.

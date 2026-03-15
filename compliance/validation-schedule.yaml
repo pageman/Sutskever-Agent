@@ -1,0 +1,32 @@
+# Validation Schedule — sutskever-agent
+
+agent: sutskever-agent
+version: 0.1.0
+risk_tier: low
+
+schedule:
+  gitagent_validate:
+    frequency: on_every_commit
+    automated: true
+    method: .github/workflows/validate.yml
+
+  compliance_review:
+    frequency: on_scope_change
+    automated: false
+    triggers:
+      - Agent scope expanded beyond educational use
+      - New write capabilities added
+      - Source repo (sutskever-30-implementations) structure changes significantly
+      - gitagent spec version bumped
+
+  audit_report_refresh:
+    frequency: on_release
+    method: "gitagent audit > compliance/audit-report.md"
+    note: Re-run and commit whenever agent.yaml version is bumped
+
+  knowledge_review:
+    frequency: annually
+    scope:
+      - knowledge/paper_index.yaml — verify arxiv IDs still resolve
+      - knowledge/sutskever_reading_list.md — check for new papers added to source repo
+      - knowledge/numpy_patterns.md — check for new patterns added in source repo notebooks
