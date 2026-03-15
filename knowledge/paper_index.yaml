@@ -272,6 +272,12 @@ papers:
     scaling_efficiency: "Extreme (the architecture that defined the scaling era — O(N²) in sequence length, but massively parallelizable)"
     interpretability_note: "Induction Heads emerge in layer 2; Copy-Paste circuits in layer 3 — the first mechanistic circuits to be formally identified."
     modern_evolution: "The foundation for GPT, Gemini, Claude, Llama, and every frontier model in existence."
+    companion_resources:
+      - title: "The Annotated Transformer"
+        author: "Rush"
+        year: 2018
+        url: "https://nlp.seas.harvard.edu/annotated-transformer/"
+        note: "PyTorch line-by-line annotation of this paper — read alongside the NumPy notebook to see how the same operations map to a production framework"
 
   - id: 14
     title: "Neural Machine Translation by Jointly Learning to Align and Translate"
